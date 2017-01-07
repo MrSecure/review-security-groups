@@ -41,7 +41,7 @@ cd /home/mrsecure/data
 
 * File Groupings
  * vpc-XXXXXX - per-VPC data
- * all-security-grops.*  -  collection of all securiy groups accessible with the AWS keys used
+ * all-security-groups.*  -  collection of all securiy groups accessible with the AWS keys used
 
 ```bash
 [mrsecure@kirchhoff]$ /home/mrsecure/git/review-security-groups/check-all-vpcs.sh
