@@ -22,7 +22,7 @@
 ```bash
 mkdir /home/mrsecure/git/
 cd /home/mrsecure/git
-git clone <this_repo>
+git clone https://github.com/MrSecure/review-security-groups.git
 mkdir /home/mrsecure/data
 cd /home/mrsecure/data
 /home/mrsecure/git/review-security-groups/check-all-vpcs.sh
