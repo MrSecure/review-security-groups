@@ -41,4 +41,9 @@ cat sec-groups.json | jq -C '.SecurityGroups[] | [.GroupId, .VpcId, .IpPermissio
 cat sec-groups.json | jq -C '.SecurityGroups[] | [.GroupId, .VpcId, .IpPermissions[].ToPort, .IpPermissions[].UserIdGroupPairs[].GroupId ]'
 cat sec-groups.json | jq -C '.SecurityGroups[] | {gid: .GroupId,  port: .IpPermissions[].ToPort, srcgrps: .IpPermissions[].UserIdGroupPairs[].GroupId }'
 ```
+## Sample VPC Flow Log Data Query
 
+```
+aws ec2 describe-flow-logs
+aws logs filter-log-events --log-group-name <logGroupName>
+```
