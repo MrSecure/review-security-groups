@@ -12,12 +12,19 @@ aws --output json ec2 describe-volumes > volumes.json
 aws --output json ec2 describe-instances > instances.json
 aws --output json ec2 describe-security-groups > sec-groups.json
 aws --output json ec2 describe-network-interfaces > nics.json
+aws --output json rds describe-db-instances > rds.json
 ```
 
 ## List Unencrypted volumes, and the instance they're attached to
 
 ```
 cat volumes.json | jq -r '.Volumes[] | select(.Encrypted == false) | {Volume: .VolumeId, Type: .VolumeType, Encryption: .Encrypted, AttachedTo: .Attachments[].InstanceId }'
+```
+
+## List Unencrypted rds instances
+
+```
+cat rds.json | jq -r '.DBInstances[] | select(.StorageEncrypted == false) | {DBInstance: .DBInstanceIdentifier, Engine: .Engine, Encrypted: .StorageEncrypted}'
 ```
 
 ## List Instances - Launch time, Platform, Instance type & ID, security groups
