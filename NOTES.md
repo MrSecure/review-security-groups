@@ -57,7 +57,9 @@ aws logs filter-log-events --log-group-name <logGroupName>
 ```
 
 
-## Create IP and DNS names to measure exposed surface
+## Gather IP and DNS names to measure exposed surface
+
+potentially useful to feed data into vulnerability scanners, etc.
 
 ```
 cat elbs.json | jq -M '.LoadBalancerDescriptions[] | { Type: .Scheme, Name: .DNSName} ' | tr '{:' '%,' | tr -d "\n}\"" | tr '%' "\n" | sort
