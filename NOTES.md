@@ -5,7 +5,7 @@
 Note: collection is kept separate from analysis so that the collected data can be used for multiple analaysis attempts.
 
 
-## Collect inventory information: Volumes, Instances, Security Groups, Network Interfaces
+## Collect inventory information: Volumes, Instances, Security Groups, Network Interfaces, etc.
 
 ```
 aws --output json ec2 describe-volumes > volumes.json
@@ -13,6 +13,7 @@ aws --output json ec2 describe-instances > instances.json
 aws --output json ec2 describe-security-groups > sec-groups.json
 aws --output json ec2 describe-network-interfaces > nics.json
 aws --output json rds describe-db-instances > rds.json
+aws --output json elb describe-load-balancers > elbs.json
 ```
 
 ## List Unencrypted volumes, and the instance they're attached to
@@ -54,3 +55,12 @@ cat sec-groups.json | jq -C '.SecurityGroups[] | {gid: .GroupId,  port: .IpPermi
 aws ec2 describe-flow-logs
 aws logs filter-log-events --log-group-name <logGroupName>
 ```
+
+
+## Create IP and DNS names to measure exposed surface
+
+```
+cat elbs.json | jq -M '.LoadBalancerDescriptions[] | { Type: .Scheme, Name: .DNSName} ' | tr '{:' '%,' | tr -d "\n}\"" | tr '%' "\n" | sort
+cat instances.json | jq -M '.Reservations[].Instances[] | { ip_private: .PrivateIpAddress, ip_public: .PublicIpAddress }' | grep 'ip_' | grep -v null | tr -d '",' | sort
+```
+
