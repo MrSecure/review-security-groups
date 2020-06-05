@@ -19,6 +19,7 @@ END_PREAMLLE;
 
 foreach ($sgs['SecurityGroups'] as $g) {
 	$sgid = $g['GroupId'];
+	$sgname= $g['GroupName'];
 
 	$rulesIngress = getRuleDot($g['IpPermissions'], $sgid, 'in');
 	$rulesEgress  = getRuleDot($g['IpPermissionsEgress'], $sgid, 'out');
@@ -26,6 +27,7 @@ foreach ($sgs['SecurityGroups'] as $g) {
 	echo $rulesIngress;
 	echo $rulesEgress;
 
+	echo sprintf("  \"%s\" [ label = \"%s / %s\"];\n", $sgid, $sgname, $sgid);
 }
 
 echo "}\n";
