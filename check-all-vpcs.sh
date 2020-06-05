@@ -7,8 +7,7 @@ FORMAT='png'
 export LC_ALL=C
 
 ## Verify aws cli tool is ready, keys active
-aws --output json sts get-caller-identity > /dev/null
-if [ $? -ne 0 ]; then
+if ! aws --output json sts get-caller-identity > /dev/null ; then
   echo "Unable to query user data via AWS CLI tool; unable to continue."
   exit 1
 fi
